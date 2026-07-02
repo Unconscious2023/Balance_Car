@@ -1,0 +1,11 @@
+.claude/
+MDK-ARM/Balance_Car_KEil_HAL/
+MDK-ARM/DebugConfig/
+MDK-ARM/RTE/
+MDK-ARM/*.uvguix*
+MDK-ARM/*.uvoptx*
+MDK-ARM/build*.log
+MDK-ARM/build_output.txt
+__pycache__/
+*.pyc
+K210/
