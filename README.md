@@ -57,7 +57,7 @@ Keil MDK: 工程 `MDK-ARM/Balance_Car_KEil_HAL.uvprojx`，目标 `Balance_Car_KE
 python tools/flash_stm32.py
 ```
 - 关闭所有串口监视器，拔插 USB 重新上电
-- 57600 8E1
+- 128000 8E1
 
 ### K210
 将 `My_K210/main.py` 放入 K210 SD 卡根目录。

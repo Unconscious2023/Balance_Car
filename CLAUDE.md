@@ -42,7 +42,7 @@ python tools/flash_stm32.py
 - 自动识别 CH340K 串口，调用 `D:\tools\stm32flash.exe` 烧录
 - **烧录前必须关掉所有串口监视器**（Serial Monitor、FlyMcu 等）
 - **拔插 USB 重新上电**以触发 CH340K 自动进入 bootloader
-- 57600 8E1，不需要 `-i` GPIO 序列（硬件自动处理 BOOT0/RESET）
+- 128000 8E1，不需要 `-i` GPIO 序列（硬件自动处理 BOOT0/RESET）
 
 ## 拿不准先问
 **只要有不明确、不确定的地方，一定要先问我，不要擅自做决策。**
