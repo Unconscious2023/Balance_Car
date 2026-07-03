@@ -1,12 +1,12 @@
 #include "app_line.h"
 
-#define Track_K210Speed    10     // zhixingsudu
-#define Track_K210Slow      2     // yujiansu
-#define Track_K210Turn      2     // zhuanwansudu
-#define K210_Trun_KP       (5)    // zhuanxiang P
-#define K210_Trun_KD       (0.1)  // zhuanxiang D
-#define K210_Minddle       160    // pingmu zhongxian
-#define K210_DEAD_ZONE     8      // siqu
+#define Track_K210Speed    12     // Forward speed
+#define Track_K210Slow     (4.5)     // Slow-down speed (curve predicted)
+#define Track_K210Turn     (4.5)     // Turn speed
+#define K210_Trun_KP       (5.2)    // Turn P gain
+#define K210_Trun_KD       (0.15)  // Turn D gain
+#define K210_Minddle       160    // Screen center (320/2)
+#define K210_DEAD_ZONE     8      // Dead zone (pixels)
 
 
 void Set_K210track_speed(void)

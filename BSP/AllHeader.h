@@ -4,7 +4,7 @@
 * @author       // lly
 * @version      // V1.0
 * @date         // 240628
-* @brief        // 相关所有的头文件 All related header files
+* @brief        //          All related header files
 */
 
 
@@ -12,14 +12,14 @@
 #define __ALLHEADER_H
 
 
-//C语言头文件
+//C     
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
 
-//HAL库STM32头文件
+//HAL STM32   
 #include "main.h"
 #include "adc.h"
 #include "tim.h"
@@ -40,7 +40,7 @@
 #endif
 
 
-//从这往下就是自定义的
+//          
 #include "myenum.h"
 #include "app_mode.h"
 
@@ -56,7 +56,7 @@
 //Usart
 #include "bsp_usart.h"
 
-//蓝牙
+//  
 #include "bsp_bluetooth.h"
 #include "app_bluetooth.h"
 
@@ -67,11 +67,11 @@
 #include "app_line.h"
 #include "app_follow.h"
 
-//PS2手柄控制
+//PS2    
 #include "bsp_ps2.h"
 #include "app_ps2.h"
 
-//雷达
+//  
 #include "bsp_lidar.h"
 #include "app_lidar.h"
 #include "app_lidar_car.h"
@@ -94,14 +94,14 @@
 #include "encoder.h"
 #include "app_motor.h"
 
-//超声波
+//   
 #include "bsp_ultrasonic.h"
 
-//4路循迹
+//4   
 #include "bsp_irtracking.h"
 #include "app_tracking.h"
 
-//电磁循迹
+//    
 #include "bsp_ele_track.h"
 #include "app_ele_tracking.h"
 
@@ -109,21 +109,21 @@
 #include "bsp_ccd.h"
 #include "app_ccd_tracking.h"
 
-//平衡车整体控制
+//       
 #include "app_control.h"
 #include "pid_control.h"
 
-//滤波算法
+//    
 #include "filter.h"
 #include "KF.h"
 
 
-//CCD显示画面指针
+//CCD      
 extern u8 CCD_Zhongzhi, CCD_Yuzhi;
 extern u8* CCDShowBuf;
 
 
-//引出的通用变量
+//       
 extern float Velocity_Left, Velocity_Right;
 extern uint8_t GET_Angle_Way;
 extern float Angle_Balance, Gyro_Balance, Gyro_Turn;

@@ -49,7 +49,7 @@ typedef enum enCarState_t {
     enTLEFT,
     enTRIGHT,
 
-    // ps2模拟值生效
+    // ps2     
     enps2Fleft,
     enps2Fright,
     enps2Bleft,
@@ -67,28 +67,28 @@ typedef enum {
 } Motor_ID;
 
 typedef enum Car_mode_t {
-    Normal,             // 正常模式
-    U_Follow,           // 超声波跟随
-    U_Avoid,            // 超声波避障
-    Weight_M,           // 负重模式
-    PS2_Control,        // PS2控制
-    Line_Track,         // 4路红外巡线
-    Diff_Line_track,    // 高难度4路巡线
-    K210_QR,            // K210识别二维码
-    K210_Line,          // K210巡线
-    K210_Follow,        // K210跟随
-    K210_SelfLearn,     // K210自主学习
-    K210_mnist,         // K210识别数字
-    LiDar_avoid,        // 雷达避障
-    LiDar_Follow,       // 雷达跟随
-    LiDar_aralm,        // 雷达警卫
-    LiDar_Patrol,       // 雷达巡逻
-    LiDar_Line,         // 雷达巡墙边
-    LiDar_wall_Line,    // 雷达沿墙走
-    CCD_Mode,           // CCD巡线
-    ElE_Mode,           // 电磁巡线
-    Bluetooth_Mode,     // 蓝牙模式
-    ChaseLine_Mode,     // 追逐赛道模式(当前使用)
+    Normal,             //     
+    U_Follow,           //      
+    U_Avoid,            //      
+    Weight_M,           //     
+    PS2_Control,        // PS2  
+    Line_Track,         // 4     
+    Diff_Line_track,    //    4   
+    K210_QR,            // K210     
+    K210_Line,          // K210  
+    K210_Follow,        // K210  
+    K210_SelfLearn,     // K210    
+    K210_mnist,         // K210    
+    LiDar_avoid,        //     
+    LiDar_Follow,       //     
+    LiDar_aralm,        //     
+    LiDar_Patrol,       //     
+    LiDar_Line,         //      
+    LiDar_wall_Line,    //      
+    CCD_Mode,           // CCD  
+    ElE_Mode,           //     
+    Bluetooth_Mode,     //     
+    ChaseLine_Mode,     //       (    )
     Mode_Max
 } Car_Mode;
 

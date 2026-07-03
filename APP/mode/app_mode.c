@@ -1,51 +1,51 @@
 #include "app_mode.h"
 
 uint8_t angle_max = 40;
-Car_Mode mode = ChaseLine_Mode;  // 默认巡线模式 Default line tracking mode
+Car_Mode mode = ChaseLine_Mode;  //        Default line tracking mode
 
 
-// 模式选择：默认Chaseline，按KEY确认启动
+//        Chaseline  KEY    
 // Mode selection: default Chaseline, press KEY to confirm
 void Mode_select(void)
 {
 	OLED_Draw_Line("Chaseline Mode", 1, true, true);
 	OLED_Draw_Line("Press KEY start!", 2, false, true);
 
-	while(!Key1_State(1));  // 等待按键 // Wait for key press
+	while(!Key1_State(1));  //      // Wait for key press
 
-	Set_Mid_Angle();   // 设置机械中值
-	Set_angle();       // 设置跌倒倾角
-	Set_PID();         // 设置PID参数
+	Set_Mid_Angle();   //       
+	Set_angle();       //       
+	Set_PID();         //   PID  
 }
 
 
-// 仅处理Chaseline模式
+//    Chaseline  
 void car_mode(int16_t cnt)
 {
-	(void)cnt;  // 不再需要手拧轮子切换模式
+	(void)cnt;  //             
 }
 
 
-// 设置机械中值
+//       
 void Set_Mid_Angle(void)
 {
-	Mid_Angle = -1;  // K210巡线的机械中值
+	Mid_Angle = -1;  // K210       
 }
 
 
-// 设置跌倒倾角
+//       
 void Set_angle(void)
 {
-	angle_max = 30;  // K210模式用30度
+	angle_max = 30;  // K210   30 
 }
 
 
-// 引入PID参数
+//   PID  
 extern float Balance_Kp, Balance_Kd, Velocity_Kp, Velocity_Ki, Turn_Kp, Turn_Kd;
 
 void Set_PID(void)
 {
-	// K210巡线PID参数
+	// K210  PID  
 	Balance_Kp  = 12000;
 	Balance_Kd  = 72;
 	Velocity_Kp = 8000;

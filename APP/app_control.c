@@ -2,10 +2,10 @@
 
 
 static u16 intstop_time = 0;
-float battery = 12;  // 初始状态处于满电12V // Initial state: fully charged 12V
+float battery = 12;  //         12V // Initial state: fully charged 12V
 
 
-// 外部中断做延迟，至少10ms
+//           10ms
 // External interrupt delay, at least 10ms
 void delay_time_int(u16 time)
 {
@@ -25,7 +25,7 @@ u16 get_time_int(void)
 }
 
 
-// MPU6050中断回调函数 — 平衡控制主循环，200Hz
+// MPU6050       —         200Hz
 // MPU6050 interrupt callback — main balance control loop, 200Hz
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -34,41 +34,41 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 	if(GPIO_Pin == MPU6050_Int_Pin)
 	{
-		// 中断延迟计数器
+		//        
 		if(intstop_time > 0)
 			intstop_time--;
 
-		// ====== Chaseline: K210视觉巡线 ======
-		Set_K210track_speed();  // 设定前进速度 Move_X = 15
+		// ====== Chaseline: K210     ======
+		Set_K210track_speed();  //        Move_X = 15
 
-		// ====== 读取姿态和编码器 ======
-		Get_Angle(GET_Angle_Way);                         // 更新姿态，5ms一次
-		Encoder_Left  = Read_Encoder(MOTOR_ID_ML);        // 左轮编码器
-		Encoder_Right = -Read_Encoder(MOTOR_ID_MR);       // 右轮编码器(取反)
-		Get_Velocity_Form_Encoder(Encoder_Left, Encoder_Right);  // 编码器→速度
+		// ======          ======
+		Get_Angle(GET_Angle_Way);                         //      5ms  
+		Encoder_Left  = Read_Encoder(MOTOR_ID_ML);        //      
+		Encoder_Right = -Read_Encoder(MOTOR_ID_MR);       //      (  )
+		Get_Velocity_Form_Encoder(Encoder_Left, Encoder_Right);  //    →  
 
-		// ====== 三层PID ======
-		Balance_Pwm  = Balance_PD(Angle_Balance, Gyro_Balance);     // 直立环
-		Velocity_Pwm = Velocity_PI(Encoder_Left, Encoder_Right);    // 速度环
-		Turn_Pwm     = Turn_K210_PD(Gyro_Turn);                     // 转向环(K210巡线)
+		// ======   PID ======
+		Balance_Pwm  = Balance_PD(Angle_Balance, Gyro_Balance);     //    
+		Velocity_Pwm = Velocity_PI(Encoder_Left, Encoder_Right);    //    
+		Turn_Pwm     = Turn_K210_PD(Gyro_Turn);                     //    (K210  )
 
-		// ====== 电机合成 ======
+		// ======      ======
 		Motor_Left  = Balance_Pwm + Velocity_Pwm + Turn_Pwm;
 		Motor_Right = Balance_Pwm + Velocity_Pwm - Turn_Pwm;
 
-		// ====== 死区过滤 + PWM限幅 ======
+		// ======      + PWM   ======
 		Motor_Left  = PWM_Ignore(Motor_Left);
 		Motor_Right = PWM_Ignore(Motor_Right);
 		Motor_Left  = PWM_Limit(Motor_Left,  2600, -2600);
 		Motor_Right = PWM_Limit(Motor_Right, 2600, -2600);
 
-		// ====== 拿起/放下检测(安全保护) ======
+		// ======   /    (    ) ======
 		if(Pick_Up(Acceleration_Z, Angle_Balance, Encoder_Left, Encoder_Right))
 			Stop_Flag = 1;
 		if(Put_Down(Angle_Balance, Encoder_Left, Encoder_Right))
 			Stop_Flag = 0;
 
-		// ====== 电机输出 ======
+		// ======      ======
 		if(Turn_Off(Angle_Balance, battery) == 0)
 			Set_Pwm(Motor_Left, Motor_Right);
 	}
@@ -77,24 +77,24 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 /**************************************************************************
 Function: Get angle
-Input   : way：The algorithm of getting angle 1：DMP  2：kalman  3：Complementary filtering
+Input   : way The algorithm of getting angle 1 DMP  2 kalman  3 Complementary filtering
 Output  : none
-函数功能：获取角度
-入口参数：way：获取角度的算法 1：DMP  2：卡尔曼 3：互补滤波
-返回  值：无
+         
+     way         1 DMP  2     3     
+       
 **************************************************************************/
 void Get_Angle(u8 way)
 {
 	float gyro_x, gyro_y, accel_x, accel_y, accel_z;
 	float Accel_Y, Accel_Z, Accel_X, Accel_Angle_x, Accel_Angle_y, Gyro_X, Gyro_Z, Gyro_Y;
-	Temperature = Read_Temperature();      // 读取MPU6050内置温度传感器数据
-	if(way == 1)                           // DMP的读取在数据采集中断读取
+	Temperature = Read_Temperature();      //   MPU6050         
+	if(way == 1)                           // DMP            
 	{
-		Read_DMP();                        // 读取加速度、角速度、倾角
-		Angle_Balance = Pitch;             // 更新平衡倾角，前倾为正后倾为负
-		Gyro_Balance  = gyro[0];           // 更新平衡角速度
-		Gyro_Turn     = gyro[2];           // 更新转向角速度
-		Acceleration_Z = accel[2];         // 更新Z轴加速度计
+		Read_DMP();                        //             
+		Angle_Balance = Pitch;             //                
+		Gyro_Balance  = gyro[0];           //        
+		Gyro_Turn     = gyro[2];           //        
+		Acceleration_Z = accel[2];         //   Z     
 	}
 	else
 	{
@@ -118,14 +118,14 @@ void Get_Angle(u8 way)
 		gyro_y  = Gyro_Y  / 939.8;
 		if(GET_Angle_Way == 2)
 		{
-			Pitch = KF_X(accel_y, accel_z, -gyro_x) / PI * 180;  // 卡尔曼滤波
+			Pitch = KF_X(accel_y, accel_z, -gyro_x) / PI * 180;  //      
 			Roll  = KF_Y(accel_x, accel_z,  gyro_y) / PI * 180;
 		}
 		else if(GET_Angle_Way == 3)
 		{
 			Accel_Angle_x = atan2(Accel_Y, Accel_Z) * 180 / PI;
 			Accel_Angle_y = atan2(Accel_X, Accel_Z) * 180 / PI;
-			Pitch = -Complementary_Filter_x(Accel_Angle_x, Gyro_X / 16.4);  // 互补滤波
+			Pitch = -Complementary_Filter_x(Accel_Angle_x, Gyro_X / 16.4);  //     
 			Roll  = -Complementary_Filter_y(Accel_Angle_y, Gyro_Y / 16.4);
 		}
 		Angle_Balance = Pitch;
@@ -137,11 +137,11 @@ void Get_Angle(u8 way)
 
 /**************************************************************************
 Function: Check whether the car is picked up
-Input   : Acceleration：Z-axis acceleration；Angle：The angle of balance；encoder_left：Left encoder count；encoder_right：Right encoder count
-Output  : 1：picked up  0：No action
-函数功能：检测小车是否被拿起
-入口参数：Acceleration：z轴加速度；Angle：平衡的角度；encoder_left：左编码器计数；encoder_right：右编码器计数
-返回  值：1:小车被拿起  0：小车未被拿起
+Input   : Acceleration Z-axis acceleration Angle The angle of balance encoder_left Left encoder count encoder_right Right encoder count
+Output  : 1 picked up  0 No action
+              
+     Acceleration z     Angle       encoder_left        encoder_right       
+      1:       0       
 **************************************************************************/
 int Pick_Up(float Acceleration, float Angle, int encoder_left, int encoder_right)
 {
@@ -175,11 +175,11 @@ int Pick_Up(float Acceleration, float Angle, int encoder_left, int encoder_right
 
 /**************************************************************************
 Function: Check whether the car is lowered
-Input   : The angle of balance；Left encoder count；Right encoder count
-Output  : 1：put down  0：No action
-函数功能：检测小车是否被放下
-入口参数：平衡角度；左编码器读数；右编码器读数
-返回  值：1：小车放下   0：小车未放下
+Input   : The angle of balance Left encoder count Right encoder count
+Output  : 1 put down  0 No action
+              
+                       
+      1        0      
 **************************************************************************/
 int Put_Down(float Angle, int encoder_left, int encoder_right)
 {

@@ -60,14 +60,14 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 
 
-uint8_t GET_Angle_Way=2;                             //»ñÈ¡½Ç¶ÈµÄËã·¨£¬1£ºËÄÔªÊý  2£º¿¨¶ûÂü  3£º»¥²¹ÂË²¨  //Algorithm for obtaining angles, 1: Quaternion 2: Kalman 3: Complementary filtering
-float Angle_Balance,Gyro_Balance,Gyro_Turn;     		//Æ½ºâÇã½Ç Æ½ºâÍÓÂÝÒÇ ×ªÏòÍÓÂÝÒÇ //Balance tilt angle balance gyroscope steering gyroscope
-int Motor_Left,Motor_Right;                 	  		//µç»úPWM±äÁ¿ //Motor PWM variable
-int Temperature;                                		//ÎÂ¶È±äÁ¿ 		//Temperature variable
-float Acceleration_Z;                           		//ZÖá¼ÓËÙ¶È¼Æ  //Z-axis accelerometer
-int Mid_Angle;                          						//»úÐµÖÐÖµ  //Mechanical median
-float Move_X,Move_Z; //Move_X:Ç°½øËÙ¶È  Move_Z£º×ªÏòËÙ¶È  //Move_X: Forward speed Move_Z: Steering speed
-u8 Stop_Flag = 1; //0:¿ªÊ¼ 1:Í£Ö¹  //0: Start 1: Stop
+uint8_t GET_Angle_Way=2;                             //ï¿½ï¿½È¡ï¿½Ç¶Èµï¿½ï¿½ã·¨ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½  2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë²ï¿½  //Algorithm for obtaining angles, 1: Quaternion 2: Kalman 3: Complementary filtering
+float Angle_Balance,Gyro_Balance,Gyro_Turn;     		//Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ //Balance tilt angle balance gyroscope steering gyroscope
+int Motor_Left,Motor_Right;                 	  		//ï¿½ï¿½ï¿½PWMï¿½ï¿½ï¿½ï¿½ //Motor PWM variable
+int Temperature;                                		//ï¿½Â¶È±ï¿½ï¿½ï¿½ 		//Temperature variable
+float Acceleration_Z;                           		//Zï¿½ï¿½ï¿½ï¿½Ù¶È¼ï¿½  //Z-axis accelerometer
+int Mid_Angle;                          						//ï¿½ï¿½Ðµï¿½ï¿½Öµ  //Mechanical median
+float Move_X,Move_Z; //Move_X:Ç°ï¿½ï¿½ï¿½Ù¶ï¿½  Move_Zï¿½ï¿½×ªï¿½ï¿½ï¿½Ù¶ï¿½  //Move_X: Forward speed Move_Z: Steering speed
+u8 Stop_Flag = 1; //0:ï¿½ï¿½Ê¼ 1:Í£Ö¹  //0: Start 1: Stop
 
 
 char showbuf[20]={'\0'};
@@ -111,12 +111,12 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  //ÖØÐÂ×Ô¶¯Éú³ÉµÄ´®¿Ú³õÊ¼»¯¼ÇµÃÉ¾µô,²»ÒªÓ°Ïì³ÌÐòÖ´ÐÐ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ÉµÄ´ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½ï¿½Çµï¿½É¾ï¿½ï¿½,ï¿½ï¿½ÒªÓ°ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½
 	//Remember to delete the automatically generated serial port initialization so as not to affect program execution
   bsp_init();
-  Mode_select(); //°´ÏÂ°´¼ü½áÊøÄ£Ê½Ñ¡Ôñ Press the button to end mode selection
-  bsp_mode_init();//¸ù¾ÝÄ£Ê½³õÊ¼»¯À©Õ¹ÍâÉè Initialize and expand peripherals based on the pattern
-  MPU6050_EXTI_Init();//Æ½ºâ·þÎñ  Balanced Services
+  Mode_select(); //ï¿½ï¿½ï¿½Â°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½Ñ¡ï¿½ï¿½ Press the button to end mode selection
+  bsp_mode_init();//ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ Initialize and expand peripherals based on the pattern
+  MPU6050_EXTI_Init();//Æ½ï¿½ï¿½ï¿½ï¿½ï¿½  Balanced Services
   OLED_Draw_Line("put down key start!", 2, false, true);
   while(!Key1_State(1) && Stop_Flag==1);
   Stop_Flag = 0; //start
